@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <script src="script.js" defer></script>
+    <script src="main.js" defer></script>
     <title>Booklib</title>
 </head>
 
@@ -12,7 +13,7 @@
     <div id="navbar">
         <div id="logo-site"></div>
         <div id="search-container">
-            <input id="search-input" type="search" class="input" placeholder="Find a book...">
+            <input id="search-input" type="search" class="input" placeholder="Rechercher un livre...">
             <img id="search-icon" src="" alt="" srcset="">
             <div id="dropdown-container"></div>
         </div>
@@ -20,14 +21,31 @@
     <div id="main-container">
         <div id="greetings">
             <h1>Hello Anaïs</h1>
-            <p id="citation">"Displaying dynamic citation" - Author</p>
+            <p id="citation" class="subtitle"></p>
         </div>
-        <button id="cta-library" class="button">Créer ma bibliothèque</button>
+        <div id="getting-started">
+            <h2>Ta bibliothèque est vide ! Commence par explorer notre librairie et ajoute des livres à ta liste de lecture.</h2>
+            <button id="cta-library" class="button">Explorer les livres</button>
+        </div>
         <div id="first-container" class="books-container">
             <h3>Mes lectures du moment</h3>
+            <p class="subtitle">Les livres que je suis en train de lire.</p>
         </div>
         <div id="second-container" class="books-container">
             <h3>Ma liste de lecture</h3>
+            <p class="subtitle">Les livres que j'ai envie de lire.</p>
+        </div>
+        <div id="third-container" class="books-container">
+            <h3>Mes lectures terminées</h3>
+            <p class="subtitle">Les livres que j'ai terminés.</p>
+        </div>
+        <div id="fourth-container" class="books-container">
+            <h3>Mes lectures en pause</h3>
+            <p class="subtitle">Les livres que j'ai mis en pause.</p>
+        </div>
+        <div id="fifth-container" class="books-container">
+            <h3>Mes lectures archivées</h3>
+            <p class="subtitle">Les livres que je n'ai pas envie de terminer.</p>
         </div>
     </div>
 </body> 

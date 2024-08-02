@@ -11,16 +11,20 @@
 }
 
 body {
-    background-color: rgb(241, 240, 238);
+    width: 100wh; 
+    background-color: rgb(242, 239, 235);
     color: #333;
     font-family: Hanken Grotesk, sans-serif;
+    /* border: 1px solid rgb(0, 66, 128); */
 }
 
 #navbar {
     display: flex;
-    margin: 10px 40px 40px 40px;
-    padding: 20px 0px;
-    /* border: 1px solid green; */
+    padding: 20px 10px 50px 40px; /* top right bottom left */
+    background-color: rgb(242, 239, 235);
+    position: fixed;
+    top: 0;
+    width: 100%;
 }
 
 input {
@@ -53,25 +57,45 @@ input {
 }
 
 #main-container {
-    margin: 40px;
+    display:flex;
+    flex-direction: column;
+    margin: 150px 40px 40px 40px;
     height: 100hv;
     /* border: 1px solid red; */
+    /* background-color: pink; */
 }
 
 h1 {
     font: normal 2.8rem Lora, Times New Roman, georgia, serif;
 }
 
-#citation {
+.subtitle {
     font: 0.8rem Hanken Grotesk, Helvetica Neue, arial, sans-serif;
     color: rgb(177, 174, 174);
+    font-weight: 300;
+}
+
+#getting-started {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-self: center;
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 40px;
+    max-width: 870px;
+    /* border: 1px solid purple; */
+} 
+
+h2 {
+    font: normal 2.3rem Lora, Times New Roman, georgia, serif;
+    margin: 25px;
 }
 
 #cta-library {
-    display: flex;
-    flex-direction: row;
-    padding: 15px 30px;
-    margin: 50px 0px;
+    align-self: center;
+    padding: 15px;
+    width: 180px;
     border: none;
     background-color: rgb(178, 105, 16);
     color: white;
@@ -87,5 +111,11 @@ h3 {
 
 .books-container {
     margin-bottom: 50px;
+    padding-top: 30px;
+    border-top: 1px solid rgba(177, 174, 174, 0.284);
     /* border: 1px solid green; */
+}
+
+#first-container {
+    border: none;
 }
