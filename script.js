@@ -1,3 +1,5 @@
+// GENERATING RANDOM QUOTES 
+
 const citationsArray = [
     `"La lecture commencer les yeux fermés" - Yvon Rivard`,
     `“Une lecture amusante est aussi utile à la santé que l’exercice du corps.” - Emmanuel Kant`,
