@@ -12,18 +12,13 @@
 
 body {
     background-color: rgb(241, 240, 238);
-    color: #333
-}
-
-#main-container {
-    margin: 40px;
-    height: 100hv;
-    /* border: 1px solid red; */
+    color: #333;
+    font-family: Hanken Grotesk, sans-serif;
 }
 
 #navbar {
     display: flex;
-    margin-bottom: 40px;
+    margin: 10px 40px 40px 40px;
     padding: 20px 0px;
     /* border: 1px solid green; */
 }
@@ -57,6 +52,12 @@ input {
     font-size: 0.9em;
 }
 
+#main-container {
+    margin: 40px;
+    height: 100hv;
+    /* border: 1px solid red; */
+}
+
 h1 {
     font: normal 2.8rem Lora, Times New Roman, georgia, serif;
 }
@@ -64,4 +65,27 @@ h1 {
 #citation {
     font: 0.8rem Hanken Grotesk, Helvetica Neue, arial, sans-serif;
     color: rgb(177, 174, 174);
+}
+
+#cta-library {
+    display: flex;
+    flex-direction: row;
+    padding: 15px 30px;
+    margin: 50px 0px;
+    border: none;
+    background-color: rgb(178, 105, 16);
+    color: white;
+    font: 0.8em Hanken Grotesk, Helvetica Neue, arial, sans-serif;
+    letter-spacing: 0.4px;
+    border-radius: 5px;
+}
+
+h3 {
+    font-size: 2rem;
+    font-weight: 350;
+}
+
+.books-container {
+    margin-bottom: 50px;
+    /* border: 1px solid green; */
 }

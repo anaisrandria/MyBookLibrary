@@ -1,4 +1,4 @@
-// CONNEXION A L'API GOOGLE BOOKS (SANS AUTHORIZATION)
+// CONNEXION A L'API (SANS AUTHORIZATION)
 const options = {
     method: 'GET',
     headers: {
@@ -8,7 +8,7 @@ const options = {
 
 const apiKey = 'AIzaSyAMkR99i88RXvSuDZ3CmZdbk5-zt8znpGE';
 
-// RECHERCHE DANS L'API A PARTIR D'UN INPUT 
+// RECUPERATION DES ELEMENTS DU DOM
 const searchInput = document.getElementById('search-input');
 const dropdownContainer = document.getElementById('dropdown-container');
 
@@ -19,33 +19,38 @@ async function searchBook() {
     let data = await fetch(requestString, options);
     let response = await data.json();
     
-    if (dropdownContainer.innerHTML != null) {
-        dropdownContainer.innerHTML = null;
-    }
+    // if (dropdownContainer.innerHTML != null) {
+    //     dropdownContainer.innerHTML = null;
+    // }
 
-    response.items.forEach(book => { // Afficher la liste de résultats dans le dropdown container
-        const matchingResult = document.createElement('div');
-        matchingResult.classList.add('matching-result'); 
-        if (!book.volumeInfo.authors && !book.volumeInfo.publishedDate) {
-            matchingResult.innerHTML = `${book.volumeInfo.title})`;
-        } else if (!book.volumeInfo.authors) {
-            matchingResult.innerHTML = `${book.volumeInfo.title}<br>(${book.volumeInfo.publishedDate.slice(0,4)})`;
-        } else if (!book.volumeInfo.publishedDate) {
-            matchingResult.innerHTML = `${book.volumeInfo.title}<br><span>par ${book.volumeInfo.authors[0]}</span>`;
-        } else {
-            matchingResult.innerHTML = `${book.volumeInfo.title}<br><span>par ${book.volumeInfo.authors[0]}</span> (${book.volumeInfo.publishedDate.slice(0,4)})`;
-        }
-        dropdownContainer.appendChild(matchingResult);
+    // if (searchInput.length ===0) {
+    //     return
+    // }
 
-        if (response.length === 0){
-            noResults()
-        }
-    })
+        response.items.forEach(book => { // Afficher la liste de résultats dans le dropdown container
+            const matchingResult = document.createElement('div');
+            matchingResult.classList.add('matching-result'); 
+            if (!book.volumeInfo.authors && !book.volumeInfo.publishedDate) {
+                matchingResult.innerHTML = `${book.volumeInfo.title})`;
+            } else if (!book.volumeInfo.authors) {
+                matchingResult.innerHTML = `${book.volumeInfo.title}<br>(${book.volumeInfo.publishedDate.slice(0,4)})`;
+            } else if (!book.volumeInfo.publishedDate) {
+                matchingResult.innerHTML = `${book.volumeInfo.title}<br><span>par ${book.volumeInfo.authors[0]}</span>`;
+            } else {
+                matchingResult.innerHTML = `${book.volumeInfo.title}<br><span>par ${book.volumeInfo.authors[0]}</span> (${book.volumeInfo.publishedDate.slice(0,4)})`;
+            }
+            dropdownContainer.appendChild(matchingResult);
+
+            if (response.length === 0){
+                noResults()
+            }
+        })
+
 } 
 
 
-
-searchInput.addEventListener('input', searchBook)
+// LANCEMENT DE LA FONCTION PRINCIPALE (RECHERCHE DANS L'API) A PARTIR D'UN INPUT UTILISATEUR
+searchInput.addEventListener('input', searchBook);
 
 
 
