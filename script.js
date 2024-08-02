@@ -1,7 +1,7 @@
 // GENERATING RANDOM QUOTES 
 
 const citationsArray = [
-    `"La lecture commencer les yeux fermés" - Yvon Rivard`,
+    `"La lecture commence les yeux fermés" - Yvon Rivard`,
     `“Une lecture amusante est aussi utile à la santé que l’exercice du corps.” - Emmanuel Kant`,
     `“Une heure de lecture est le souverain remède contre les dégoûts de la vie.” - Montesquieu`,
     `“La lecture est à l'esprit ce que l'exercice est au corps.” - J. Addison`,
