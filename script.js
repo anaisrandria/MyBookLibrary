@@ -10,28 +10,32 @@ const apiKey = 'AIzaSyAMkR99i88RXvSuDZ3CmZdbk5-zt8znpGE';
 
 // RECHERCHE DANS L'API A PARTIR D'UN INPUT 
 const searchInput = document.getElementById('search-input');
-const suggestionsDropdown = document.getElementById("suggestions-dropdown");
+const dropdownContainer = document.getElementById('dropdown-container');
 
 
 // FONCTION PRINCIPALE
 async function searchBook() {
-    let requestString = `https://books.googleapis.com/books/v1/volumes?q="${searchInput.value}"&printType=books&orderBy=relevance&langRestrict=fr&key=${apiKey}`
+    let requestString = `https://books.googleapis.com/books/v1/volumes?q=${searchInput.value}&printType=books&langRestrict=fr&key=${apiKey}`
     let data = await fetch(requestString, options);
     let response = await data.json();
-
-    for (let i=0; i < response.items.length; i++) {
-        console.log('titre:', response.items[i]);
-    }
     
-    if (suggestionsDropdown.innerHTML != null) {
-            suggestionsDropdown.innerHTML = null;
+    if (dropdownContainer.innerHTML != null) {
+        dropdownContainer.innerHTML = null;
     }
 
-    response.items.forEach(book => { // Afficher la liste de résultats sur la page
-        const suggestionItem = document.createElement('div');
-        suggestionItem.classList.add('suggestion-item'); 
-        suggestionItem.textContent = `${book.volumeInfo.title} (${book.volumeInfo.publishedDate})`;
-        suggestionsDropdown.appendChild(suggestionItem);
+    response.items.forEach(book => { // Afficher la liste de résultats dans le dropdown container
+        const matchingResult = document.createElement('div');
+        matchingResult.classList.add('matching-result'); 
+        if (!book.volumeInfo.authors && !book.volumeInfo.publishedDate) {
+            matchingResult.innerHTML = `${book.volumeInfo.title})`;
+        } else if (!book.volumeInfo.authors) {
+            matchingResult.innerHTML = `${book.volumeInfo.title}<br>(${book.volumeInfo.publishedDate.slice(0,4)})`;
+        } else if (!book.volumeInfo.publishedDate) {
+            matchingResult.innerHTML = `${book.volumeInfo.title}<br><span>par ${book.volumeInfo.authors[0]}</span>`;
+        } else {
+            matchingResult.innerHTML = `${book.volumeInfo.title}<br><span>par ${book.volumeInfo.authors[0]}</span> (${book.volumeInfo.publishedDate.slice(0,4)})`;
+        }
+        dropdownContainer.appendChild(matchingResult);
 
         if (response.length === 0){
             noResults()
