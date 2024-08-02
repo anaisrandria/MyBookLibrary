@@ -15,16 +15,26 @@ body {
     background-color: rgb(242, 239, 235);
     color: #333;
     font-family: Hanken Grotesk, sans-serif;
-    /* border: 1px solid rgb(0, 66, 128); */
 }
 
 #navbar {
     display: flex;
-    padding: 20px 10px 50px 40px; /* top right bottom left */
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 70px 50px 80px; /* top right bottom left */
     background-color: rgb(242, 239, 235);
     position: fixed;
     top: 0;
     width: 100%;
+}
+
+#nav-menu {
+    display: flex;
+}
+
+.menu {
+    margin: 0px 0px 0px 30px;
+    font-weight: 300;
 }
 
 input {
@@ -59,14 +69,14 @@ input {
 #main-container {
     display:flex;
     flex-direction: column;
-    margin: 150px 40px 40px 40px;
+    margin: 150px 40px 40px 80px;
     height: 100hv;
     /* border: 1px solid red; */
     /* background-color: pink; */
 }
 
 h1 {
-    font: normal 2.8rem Lora, Times New Roman, georgia, serif;
+    font: lighter 2.8rem Lora, Times New Roman, georgia, serif;
 }
 
 .subtitle {
