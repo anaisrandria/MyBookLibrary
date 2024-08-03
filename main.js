@@ -8,6 +8,7 @@ const options = {
 
 const apiKey = 'AIzaSyAMkR99i88RXvSuDZ3CmZdbk5-zt8znpGE';
 
+
 // RECUPERATION DES ELEMENTS DU DOM
 const searchInput = document.getElementById('search-input');
 const dropdownContainer = document.getElementById('dropdown-container');
@@ -18,18 +19,22 @@ async function searchBook() {
     let requestString = `https://books.googleapis.com/books/v1/volumes?q=${searchInput.value}&printType=books&langRestrict=fr&key=${apiKey}`
     let data = await fetch(requestString, options);
     let response = await data.json();
-    
-    // if (dropdownContainer.innerHTML != null) {
-    //     dropdownContainer.innerHTML = null;
-    // }
 
-    // if (searchInput.length ===0) {
+    console.log(`Titre: ${response.items[0].volumeInfo.title} + id: ${response.items[0].id}`)
+
+    if (dropdownContainer.innerHTML != null) {
+        dropdownContainer.innerHTML = null;
+    }
+
+    // if (searchInput.length === 0) {
     //     return
     // }
+
 
         response.items.forEach(book => { // Afficher la liste de résultats dans le dropdown container
             const matchingResult = document.createElement('div');
             matchingResult.classList.add('matching-result'); 
+            matchingResult.setAttribute('id', `${book.id}`)
             if (!book.volumeInfo.authors && !book.volumeInfo.publishedDate) {
                 matchingResult.innerHTML = `${book.volumeInfo.title})`;
             } else if (!book.volumeInfo.authors) {
@@ -37,7 +42,7 @@ async function searchBook() {
             } else if (!book.volumeInfo.publishedDate) {
                 matchingResult.innerHTML = `${book.volumeInfo.title}<br><span>par ${book.volumeInfo.authors[0]}</span>`;
             } else {
-                matchingResult.innerHTML = `${book.volumeInfo.title}<br><span>par ${book.volumeInfo.authors[0]}</span> (${book.volumeInfo.publishedDate.slice(0,4)})`;
+                matchingResult.innerHTML = `${book.volumeInfo.title}<br><span>par ${book.volumeInfo.authors[0]} (${book.volumeInfo.publishedDate.slice(0,4)})</span>`;
             }
             dropdownContainer.appendChild(matchingResult);
 
@@ -45,7 +50,6 @@ async function searchBook() {
                 noResults()
             }
         })
-
 } 
 
 
