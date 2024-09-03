@@ -14,7 +14,7 @@ body {
     width: 100wh; 
     background-color: rgb(242, 239, 235);
     color: #333;
-    font-family: Hanken Grotesk, sans-serif;
+    font-family: "Hanken Grotesk", sans-serif;
 }
 
 #navbar {
@@ -43,7 +43,7 @@ input {
     border: 0;
     border-bottom: 1px solid #807d7de1;
     width: 450px;
-    font: 0.8rem Hanken Grotesk, Helvetica Neue, arial, sans-serif;
+    font: 0.8rem "Hanken Grotesk", Helvetica Neue, arial, sans-serif;
     background-color: transparent;
 }
 
@@ -52,7 +52,7 @@ input {
     margin-top: 20px;
     position: absolute;
     background-color: rgb(255, 255, 255);
-    font: 0.8rem Hanken Grotesk, Helvetica Neue, arial, sans-serif;
+    font: 0.8rem "Hanken Grotesk", Helvetica Neue, arial, sans-serif;
     border-radius: 10px;
     filter: drop-shadow(5px 5px 4px rgb(228, 223, 223));
 }
@@ -75,11 +75,11 @@ input {
 }
 
 h1 {
-    font: lighter 2.8rem Lora, Times New Roman, georgia, serif;
+    font: lighter 2.8rem "Lora", Times New Roman, georgia, serif;
 }
 
 .subtitle {
-    font: 0.8rem Hanken Grotesk, Helvetica Neue, arial, sans-serif;
+    font: 0.8rem "Hanken Grotesk", Helvetica Neue, arial, sans-serif;
     color: rgb(177, 174, 174);
     font-weight: 300;
 }
@@ -97,7 +97,7 @@ h1 {
 } 
 
 h2 {
-    font: normal 2.3rem Lora, Times New Roman, georgia, serif;
+    font: normal 2.3rem "Lora", Times New Roman, georgia, serif;
     margin: 25px;
 }
 
@@ -108,7 +108,7 @@ h2 {
     border: none;
     background-color: rgb(178, 105, 16);
     color: white;
-    font: 0.8em Hanken Grotesk, Helvetica Neue, arial, sans-serif;
+    font: 0.8em "Hanken Grotesk", Helvetica Neue, arial, sans-serif;
     letter-spacing: 0.4px;
     border-radius: 5px;
 }
