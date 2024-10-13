@@ -58,12 +58,20 @@ input {
 }
 
 .matching-result {
+    /* display: flex; */
+    /* flex-direction: row; */
     padding: 15px;
     border-top: 1.5px solid #f5f1f1e1;
 }
 
 .matching-result span {
     font-size: 0.9em;
+}
+
+.thumbnail {
+    display: flex;
+    height: 50px;
+    width: auto;
 }
 
 #main-container {

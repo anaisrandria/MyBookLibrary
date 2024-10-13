@@ -1,54 +1,48 @@
-// CONNEXION A L'API (SANS AUTHORIZATION)
-const options = {
-    method: 'GET',
-    headers: {
-        Accept: 'application/json',
-    }
-}
-
-const apiKey = 'AIzaSyAMkR99i88RXvSuDZ3CmZdbk5-zt8znpGE';
-
-
-// RECUPERATION DES ELEMENTS DU DOM
+// ---------- RECUPERATION DES ELEMENTS DU DOM ---------- //
 const searchInput = document.getElementById('search-input');
 const dropdownContainer = document.getElementById('dropdown-container');
 
 
-// FONCTION PRINCIPALE
-async function searchBook() {
-    let requestString = `https://books.googleapis.com/books/v1/volumes?q=${searchInput.value}&printType=books&langRestrict=fr&key=${apiKey}`
-    let data = await fetch(requestString, options);
-    let response = await data.json();
+// ---------- FONCTION PRINCIPALE ---------- //
+async function fetchApi() {
+    const requestString = `https://books.googleapis.com/books/v1/volumes?q=${searchInput.value}&printType=books&langRestrict=fr&key=${apiKey}`
+    const data = await fetch(requestString, options);
+    const response = await data.json();
 
-    console.log(`Titre: ${response.items[0].volumeInfo.title} + id: ${response.items[0].id}`)
+    console.log("🪲", response.items[0]);
+    console.log(`Titre: ${response.items[0].volumeInfo.title} + id: ${response.items[0].id}`);
 
     if (dropdownContainer.innerHTML != null) {
         dropdownContainer.innerHTML = null;
     }
 
-    response.items.forEach(book => { // Afficher la liste de résultats dans le dropdown container
+    response.items.slice(0,5).forEach(book => {
         displayResults(book, response);
-    })
-} 
+    });
+}; 
 
+
+// ---------- AFFICHER DROPDOWN LIST ---------- //
 function displayResults(book, response) {
     const matchingResult = document.createElement("div");
     matchingResult.classList.add("matching-result");
     matchingResult.setAttribute("id", `${book.id}`);
-
+    
+    const thumbnail = document.createElement("img");
+    thumbnail.classList.add("thumbnail");
+    thumbnail.setAttribute("src", `${book.volumeInfo.imageLinks.thumbnail}`);
+    
     if (!book.volumeInfo.authors && !book.volumeInfo.publishedDate) {
         matchingResult.innerHTML = `${book.volumeInfo.title})`;
     } else if (!book.volumeInfo.authors) {
-        matchingResult.innerHTML = `${
-            book.volumeInfo.title
-        }<br>(${book.volumeInfo.publishedDate.slice(0, 4)})`;
+        matchingResult.innerHTML = `${book.volumeInfo.title}<br>(${book.volumeInfo.publishedDate.slice(0, 4)})`;
     } else if (!book.volumeInfo.publishedDate) {
         matchingResult.innerHTML = `${book.volumeInfo.title}<br><span>par ${book.volumeInfo.authors[0]}</span>`;
     } else {
-        matchingResult.innerHTML = `${book.volumeInfo.title}<br><span>par ${
-            book.volumeInfo.authors[0]
-        } (${book.volumeInfo.publishedDate.slice(0, 4)})</span>`;
+        matchingResult.innerHTML = `${book.volumeInfo.title}<br><span>par ${book.volumeInfo.authors[0]} (${book.volumeInfo.publishedDate.slice(0, 4)})</span>`;
     }
+    
+    matchingResult.appendChild(thumbnail);
     dropdownContainer.appendChild(matchingResult);
 
     if (response.length === 0) {
@@ -59,7 +53,7 @@ function displayResults(book, response) {
 
 
 // LANCEMENT DE LA FONCTION PRINCIPALE (RECHERCHE DANS L'API) A PARTIR D'UN INPUT UTILISATEUR
-searchInput.addEventListener('input', searchBook);
+searchInput.addEventListener('input', fetchApi);
 
 
 
