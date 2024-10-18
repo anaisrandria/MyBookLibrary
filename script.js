@@ -9,16 +9,19 @@ async function fetchApi() {
     const data = await fetch(requestString, options);
     const response = await data.json();
 
-    console.log("🪲", response.items[0]);
-    console.log(`Titre: ${response.items[0].volumeInfo.title} + id: ${response.items[0].id}`);
+    console.log("🐣", response);
+    // console.log("🪲", response.items[0]);
+    // console.log(`Titre: ${response.items[0].volumeInfo.title} + id: ${response.items[0].id}`);
 
     if (dropdownContainer.innerHTML != null) {
         dropdownContainer.innerHTML = null;
     }
 
-    response.items.slice(0,5).forEach(book => {
-        displayResults(book, response);
-    });
+    if (response.totalItems !== 0) {
+        response.items.slice(0,5).forEach(book => {
+            displayResults(book, response);
+        });
+    }
 }; 
 
 
@@ -30,7 +33,10 @@ function displayResults(book, response) {
     
     const thumbnail = document.createElement("img");
     thumbnail.classList.add("thumbnail");
-    thumbnail.setAttribute("src", `${book.volumeInfo.imageLinks.thumbnail}`);
+    
+    if (book.volumeInfo.imageLinks) {
+        thumbnail.setAttribute("src", `${book.volumeInfo.imageLinks.thumbnail}`);
+    }
 
     const title = document.createElement("p");
     const bookInformation = document.createElement("p");
@@ -45,14 +51,17 @@ function displayResults(book, response) {
     } else {
         bookInformation.innerHTML = `<span>par ${book.volumeInfo.authors[0]} (${book.volumeInfo.publishedDate.slice(0, 4)})</span>`;
     }
-    
-    matchingResult.appendChild(thumbnail);
+ 
+    if (book.volumeInfo.imageLinks) {
+        matchingResult.appendChild(thumbnail);
+    };
+
     textContainer.appendChild(title);
     textContainer.appendChild(bookInformation);
     matchingResult.appendChild(textContainer);
     dropdownContainer.appendChild(matchingResult);
 
-    if (response.length === 0) {
+    if (response.totalItems === 0) {
         noResults();
     }
 
@@ -66,10 +75,15 @@ let timer = 0;
 searchInput.addEventListener('input', () => {
     clearTimeout(timer);
     timer = setTimeout(function () {
+        if (searchInput.value !== "") {
             fetchApi();
+        }
+
+        if (searchInput.value == "") {
+            dropdownContainer.innerHTML = "";
+        }
     }, 1000);
 });
-
 
 
 
