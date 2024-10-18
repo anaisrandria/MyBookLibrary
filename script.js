@@ -31,18 +31,25 @@ function displayResults(book, response) {
     const thumbnail = document.createElement("img");
     thumbnail.classList.add("thumbnail");
     thumbnail.setAttribute("src", `${book.volumeInfo.imageLinks.thumbnail}`);
+
+    const title = document.createElement("p");
+    const bookInformation = document.createElement("p");
+    const textContainer = document.createElement("div");
     
-    if (!book.volumeInfo.authors && !book.volumeInfo.publishedDate) {
-        matchingResult.innerHTML = `${book.volumeInfo.title})`;
-    } else if (!book.volumeInfo.authors) {
-        matchingResult.innerHTML = `${book.volumeInfo.title}<br>(${book.volumeInfo.publishedDate.slice(0, 4)})`;
+    title.innerHTML = `${book.volumeInfo.title}`;
+
+    if (!book.volumeInfo.authors) {
+        bookInformation.innerHTML = `<span>(${book.volumeInfo.publishedDate.slice(0, 4)})</span>`;
     } else if (!book.volumeInfo.publishedDate) {
-        matchingResult.innerHTML = `${book.volumeInfo.title}<br><span>par ${book.volumeInfo.authors[0]}</span>`;
+        bookInformation.innerHTML = `<span>par ${book.volumeInfo.authors[0]}</span>`;
     } else {
-        matchingResult.innerHTML = `${book.volumeInfo.title}<br><span>par ${book.volumeInfo.authors[0]} (${book.volumeInfo.publishedDate.slice(0, 4)})</span>`;
+        bookInformation.innerHTML = `<span>par ${book.volumeInfo.authors[0]} (${book.volumeInfo.publishedDate.slice(0, 4)})</span>`;
     }
     
     matchingResult.appendChild(thumbnail);
+    textContainer.appendChild(title);
+    textContainer.appendChild(bookInformation);
+    matchingResult.appendChild(textContainer);
     dropdownContainer.appendChild(matchingResult);
 
     if (response.length === 0) {
@@ -53,7 +60,16 @@ function displayResults(book, response) {
 
 
 // LANCEMENT DE LA FONCTION PRINCIPALE (RECHERCHE DANS L'API) A PARTIR D'UN INPUT UTILISATEUR
-searchInput.addEventListener('input', fetchApi);
+
+let timer = 0;
+
+searchInput.addEventListener('input', () => {
+    clearTimeout(timer);
+    timer = setTimeout(function () {
+            fetchApi();
+    }, 1000);
+});
+
 
 
 

@@ -58,8 +58,8 @@ input {
 }
 
 .matching-result {
-    /* display: flex; */
-    /* flex-direction: row; */
+    display: flex;
+    gap: 0.8rem;
     padding: 15px;
     border-top: 1.5px solid #f5f1f1e1;
 }
@@ -69,8 +69,7 @@ input {
 }
 
 .thumbnail {
-    display: flex;
-    height: 50px;
+    height: 4rem;
     width: auto;
 }
 
