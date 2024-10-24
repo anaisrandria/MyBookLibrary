@@ -42,26 +42,35 @@ input {
     outline: 0;
     border: 0;
     border-bottom: 1px solid #807d7de1;
-    width: 450px;
+    width: 470px;
     font: 0.8rem "Hanken Grotesk", Helvetica Neue, arial, sans-serif;
     background-color: transparent;
 }
 
 #dropdown-container {
     width: 470px;
-    margin-top: 20px;
+    margin-top: 0px;
     position: absolute;
-    background-color: rgb(255, 255, 255);
     font: 0.8rem "Hanken Grotesk", Helvetica Neue, arial, sans-serif;
+    background-color: rgb(255, 255, 255);
     border-radius: 10px;
     filter: drop-shadow(5px 5px 4px rgb(228, 223, 223));
 }
 
 .matching-result {
     display: flex;
+    width: 100%;
     gap: 0.8rem;
-    padding: 15px;
-    border-top: 1.5px solid #f5f1f1e1;
+    padding: 0.9rem;
+    border: 0.1rem solid rgb(255, 255, 255);
+    border-top: 0.1rem solid #f5f1f1e1;
+    border-radius: 0px 0px 10px 10px;
+    background-color: white;
+	font: inherit;
+	color: inherit;
+    text-align: left;
+	cursor: pointer;
+    outline: none;
 }
 
 .matching-result span {
@@ -100,7 +109,6 @@ h1 {
     margin-top: 20px;
     margin-bottom: 40px;
     max-width: 870px;
-    /* border: 1px solid purple; */
 } 
 
 h2 {

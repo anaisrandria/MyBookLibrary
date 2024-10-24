@@ -13,16 +13,17 @@ async function fetchApi() {
     // console.log("🪲", response.items[0]);
     // console.log(`Titre: ${response.items[0].volumeInfo.title} + id: ${response.items[0].id}`);
 
-    // Afficher 5 nouveaux résultats à chaque fetch de l'api
     if (dropdownContainer.innerHTML != null) {
         dropdownContainer.innerHTML = null;
-    }
+    };
 
     if (response.totalItems !== 0) {
         response.items.slice(0,5).forEach(book => {
-            displayResults(book, response);
+            displayResults(book);
         });
-    }
+    } else {
+        noResults();
+    };
 }; 
 
 
@@ -42,14 +43,14 @@ searchInput.addEventListener('input', () => {
 
 
 // ---------- AFFICHER DROPDOWN LIST ---------- //
-function displayResults(book, response) {
-    const matchingResult = document.createElement("div");
+function displayResults(book) {
+    const matchingResult = document.createElement("button");
     matchingResult.classList.add("matching-result");
     matchingResult.setAttribute("id", `${book.id}`);
-    
+
     const textContainer = document.createElement("div");
-    textContainer.classList.add("text-container");
-    
+	textContainer.classList.add("text-container");
+
     const thumbnail = document.createElement("img");
     thumbnail.classList.add("thumbnail");
     if (book.volumeInfo.imageLinks) {
@@ -68,27 +69,24 @@ function displayResults(book, response) {
         bookInformation.innerHTML = `<span>par ${book.volumeInfo.authors[0]}</span>`;
     } else {
         bookInformation.innerHTML = `<span>par ${book.volumeInfo.authors[0]} (${book.volumeInfo.publishedDate.slice(0, 4)})</span>`;
-    }
- 
+    };
+    
     textContainer.appendChild(title);
     textContainer.appendChild(bookInformation);
     matchingResult.appendChild(thumbnail);
     matchingResult.appendChild(textContainer);
     dropdownContainer.appendChild(matchingResult);
-
-    if (response.totalItems === 0) {
-        noResults();
-    }
-
 };
 
 
-// AFFICHER UN MESSAGE D'ERREUR SI PAS DE RESULTAT 
+// ---------- AFFICHER UN MESSAGE D'ERREUR SI PAS DE RESULTAT ---------- //
 function noResults(){
-    const error = document.createElement('li');
-    error.classList.add('error-message');
+    const matchingResult = document.createElement("div");
+	matchingResult.classList.add("matching-result");
 
-    const text = document.createTextNode('No results found.');
-    error.appendChild(text);
-    list.appendChild(error);
+    const error = document.createElement("p");
+    error.innerHTML = "Pas de résultat.";
+
+    matchingResult.appendChild(error);
+    dropdownContainer.appendChild(matchingResult);
 };
