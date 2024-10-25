@@ -27,7 +27,7 @@ async function fetchApi() {
 }; 
 
 
-// LANCEMENT DE LA FONCTION FETCH API A PARTIR D'UN INPUT UTILISATEUR
+// ---------- LANCEMENT DE LA FONCTION FETCH API À PARTIR D'UN INPUT UTILISATEUR ---------- //
 let timer = 0;
 
 searchInput.addEventListener('input', () => {
@@ -38,7 +38,7 @@ searchInput.addEventListener('input', () => {
         } else {
             dropdownContainer.innerHTML = "";
         }
-    }, 500);
+    }, 300);
 });
 
 
@@ -76,8 +76,17 @@ function displayResults(book) {
     matchingResult.appendChild(thumbnail);
     matchingResult.appendChild(textContainer);
     dropdownContainer.appendChild(matchingResult);
+
+    return matchingResult;
 };
 
+// ---------- FERMER DROPDOWN LIST SI CLIC À L'EXTÉRIEUR DU CONTAINER ---------- //
+document.addEventListener("click", function(event) {
+    const isClickInside = dropdownContainer.contains(event.target)
+    if (!isClickInside) {
+        dropdownContainer.innerHTML = null;
+    }
+})
 
 // ---------- AFFICHER UN MESSAGE D'ERREUR SI PAS DE RESULTAT ---------- //
 function noResults(){
