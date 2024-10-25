@@ -7,6 +7,7 @@
     padding: 0;
     box-sizing: border-box;
     text-decoration: none;
+    color: #333;
     list-style: none;
 }
 
@@ -55,6 +56,7 @@ input {
     background-color: rgb(255, 255, 255);
     border-radius: 10px;
     filter: drop-shadow(5px 5px 4px rgb(228, 223, 223));
+    /* z-index: 2; */
 }
 
 .matching-result {
@@ -134,17 +136,50 @@ h3 {
 }
 
 .section-container {
-    margin-bottom: 20px;
-    padding-top: 30px;
-    border-top: 1px solid rgba(177, 174, 174, 0.284);
+    margin-top: 20px;
+    padding-bottom: 40px;
+    border-bottom: 1px solid rgba(177, 174, 174, 0.284);
 }
 
-.books-container .thumbnail {
-    height: 10rem;
+/* Vignettes de section dans index.html */
+.books-container .thumbnail { 
+    height: 15rem;
     width: auto;
-    margin: 10px 20px 10px 0px;
+    margin: 20px 20px 10px 0px;
+    filter: drop-shadow(5px 5px 4px rgba(0, 0, 0, 0.09));
+    z-index: -2;
+    position: relative;
 }
 
-#first-container {
+/* #first-container {
     border: none;
+} */
+
+#book-description {
+    padding-top: 0;
+}
+
+#book-description h1 {
+    margin: 0px 0px 0px 25px;
+}
+
+#book-description h2 {
+    margin: 0px 0px 0px 25px;
+}
+
+#book-info-container {
+    display: flex;
+}
+
+.summary {
+    margin: 25px;
+}
+
+#cover-wrapper {
+    width: 500px;
+}
+
+#big-cover {
+    max-width: 500px;
+    height: 30rem;
 }

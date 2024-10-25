@@ -2,6 +2,7 @@
 const searchInput = document.querySelector("#search-input");
 const dropdownContainer = document.querySelector("#dropdown-container");
 const booksContainer = document.querySelector(".books-container");
+const gettingStarted = document.querySelector("#getting-started");
 
 
 // ---------- FONCTION PRINCIPALE ---------- //
@@ -95,14 +96,24 @@ function addBookToList(book) {
 	}
 
 	booksContainer.appendChild(thumbnail);
+
+    hideExplore();
+}
+
+// ---------- MASQUER GETTING STARTED DÈS QU'UNE SECTION DE LECTURE EST NON VIDE ---------- //
+function hideExplore() {
+    if (booksContainer.innerHTML != "") {
+        gettingStarted.innerHTML = ""
+    }
 }
 
 
-// ---------- FERMER DROPDOWN LIST SI CLIC À L'EXTÉRIEUR DU CONTAINER ---------- //
+// ---------- FERMER DROPDOWN ET CLEANER INPUT SI CLIC À L'EXTÉRIEUR DU CONTAINER ---------- //
 document.addEventListener("click", (event) => {
     const isClickInside = dropdownContainer.contains(event.target)
     if (!isClickInside) {
         dropdownContainer.innerHTML = null;
+        searchInput.value = "";
     }
 })
 
