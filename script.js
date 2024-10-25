@@ -1,6 +1,7 @@
 // ---------- RECUPERATION DES ELEMENTS DU DOM ---------- //
-const searchInput = document.getElementById('search-input');
-const dropdownContainer = document.getElementById('dropdown-container');
+const searchInput = document.querySelector("#search-input");
+const dropdownContainer = document.querySelector("#dropdown-container");
+const booksContainer = document.querySelector(".books-container");
 
 
 // ---------- FONCTION PRINCIPALE ---------- //
@@ -46,17 +47,17 @@ searchInput.addEventListener('input', () => {
 function displayResults(book) {
     const matchingResult = document.createElement("button");
     matchingResult.classList.add("matching-result");
-    matchingResult.setAttribute("id", `${book.id}`);
+    matchingResult.setAttribute("id", book.id);
 
     const textContainer = document.createElement("div");
 	textContainer.classList.add("text-container");
 
-    const thumbnail = document.createElement("img");
-    thumbnail.classList.add("thumbnail");
+    const miniThumbnail = document.createElement("img");
+    miniThumbnail.classList.add("mini-thumbnail");
     if (book.volumeInfo.imageLinks) {
-        thumbnail.setAttribute("src", `${book.volumeInfo.imageLinks.thumbnail}`);
+        miniThumbnail.setAttribute("src", book.volumeInfo.imageLinks.thumbnail);
     } else {
-        thumbnail.setAttribute("src", "assets/missingbook.jpg");
+        miniThumbnail.setAttribute("src", "assets/missingbook.jpg");
     };
 
     const title = document.createElement("p");
@@ -73,15 +74,32 @@ function displayResults(book) {
     
     textContainer.appendChild(title);
     textContainer.appendChild(bookInformation);
-    matchingResult.appendChild(thumbnail);
+    matchingResult.appendChild(miniThumbnail);
     matchingResult.appendChild(textContainer);
     dropdownContainer.appendChild(matchingResult);
+ 
+    matchingResult.addEventListener("click", () => addBookToList(book))
 
     return matchingResult;
 };
 
+// ---------- AJOUTER LIVRE CLIQUÉ À UNE LISTE DE LECTURE ---------- //
+function addBookToList(book) {
+	console.log(`Bouton cliqué pour ${book.volumeInfo.title} !`);
+	const thumbnail = document.createElement("img");
+	thumbnail.classList.add("thumbnail");
+	if (book.volumeInfo.imageLinks) {
+		thumbnail.setAttribute("src", book.volumeInfo.imageLinks.thumbnail);
+	} else {
+		thumbnail.setAttribute("src", "assets/missingbook.jpg");
+	}
+
+	booksContainer.appendChild(thumbnail);
+}
+
+
 // ---------- FERMER DROPDOWN LIST SI CLIC À L'EXTÉRIEUR DU CONTAINER ---------- //
-document.addEventListener("click", function(event) {
+document.addEventListener("click", (event) => {
     const isClickInside = dropdownContainer.contains(event.target)
     if (!isClickInside) {
         dropdownContainer.innerHTML = null;

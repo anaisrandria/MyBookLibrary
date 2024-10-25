@@ -77,7 +77,7 @@ input {
     font-size: 0.9em;
 }
 
-.thumbnail {
+.mini-thumbnail {
     height: 4rem;
     width: auto;
 }
@@ -133,11 +133,16 @@ h3 {
     font-weight: 350;
 }
 
-.books-container {
-    margin-bottom: 50px;
+.section-container {
+    margin-bottom: 20px;
     padding-top: 30px;
     border-top: 1px solid rgba(177, 174, 174, 0.284);
-    /* border: 1px solid green; */
+}
+
+.books-container .thumbnail {
+    height: 10rem;
+    width: auto;
+    margin: 10px 20px 10px 0px;
 }
 
 #first-container {
