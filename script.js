@@ -5,6 +5,25 @@ const booksContainer = document.querySelector(".books-container");
 const gettingStarted = document.querySelector("#getting-started");
 
 
+// ---------- DÉFINITION DE CLASSE ---------- //
+class Book {
+	constructor(title, author, publishedDate) {
+		this.title = title;
+		this.author = author;
+		this.publishedDate = publishedDate;
+	}
+
+	// get title() {
+	// 	return this.title;
+	// }
+	// get author() {
+	// 	return this.author;
+	// }
+    // get publishedDate() {
+    //     return this.publishedDate;
+    // }
+}
+
 // ---------- FONCTION PRINCIPALE ---------- //
 async function fetchApi() {
     const requestString = `https://books.googleapis.com/books/v1/volumes?q=${searchInput.value}&printType=books&langRestrict=fr&key=${apiKey}`
@@ -46,6 +65,9 @@ searchInput.addEventListener('input', () => {
 
 // ---------- AFFICHER DROPDOWN LIST ---------- //
 function displayResults(book) {
+    newBook = new Book(book.volumeInfo.title, book.volumeInfo.authors, book.volumeInfo.publishedDate);
+    console.log("🍄", newBook);
+
     const matchingResult = document.createElement("button");
     matchingResult.classList.add("matching-result");
     matchingResult.setAttribute("id", book.id);
@@ -106,7 +128,6 @@ function hideExplore() {
         gettingStarted.innerHTML = ""
     }
 }
-
 
 // ---------- FERMER DROPDOWN ET CLEANER INPUT SI CLIC À L'EXTÉRIEUR DU CONTAINER ---------- //
 document.addEventListener("click", (event) => {
