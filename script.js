@@ -26,27 +26,26 @@ class Book {
 
 // ---------- FONCTION PRINCIPALE ---------- //
 async function fetchApi() {
-    const requestString = `https://books.googleapis.com/books/v1/volumes?q=${searchInput.value}&printType=books&langRestrict=fr&key=${apiKey}`
-    const data = await fetch(requestString, options);
-    const response = await data.json();
+	const requestString = `https://books.googleapis.com/books/v1/volumes?q=${searchInput.value}&maxResults=40&printType=books&key=${apiKey}`;
+	const data = await fetch(requestString, options);
+	const response = await data.json();
 
-    console.log("🐣", response);
-    // console.log("🪲", response.items[0]);
-    // console.log(`Titre: ${response.items[0].volumeInfo.title} + id: ${response.items[0].id}`);
+	console.log("🐣", response);
+	// console.log("🪲", response.items[0]);
+	// console.log(`Titre: ${response.items[0].volumeInfo.title} + id: ${response.items[0].id}`);
 
-    if (dropdownContainer.innerHTML != null) {
-        dropdownContainer.innerHTML = null;
-    };
+	if (dropdownContainer.innerHTML != null) {
+		dropdownContainer.innerHTML = null;
+	}
 
-    if (response.totalItems !== 0) {
-        response.items.slice(0,5).forEach(book => {
-            displayResults(book);
-        });
-    } else {
-        noResults();
-    };
+	if (response.totalItems !== 0) {
+		response.items.slice(0, 5).forEach((book) => {
+			displayResults(book);
+		});
+	} else {
+		noResults();
+	}
 }; 
-
 
 // ---------- LANCEMENT DE LA FONCTION FETCH API À PARTIR D'UN INPUT UTILISATEUR ---------- //
 let timer = 0;
@@ -62,11 +61,10 @@ searchInput.addEventListener('input', () => {
     }, 300);
 });
 
-
 // ---------- AFFICHER DROPDOWN LIST ---------- //
 function displayResults(book) {
     newBook = new Book(book.volumeInfo.title, book.volumeInfo.authors, book.volumeInfo.publishedDate);
-    console.log("🍄", newBook);
+    // console.log("🍄", newBook);
 
     const matchingResult = document.createElement("button");
     matchingResult.classList.add("matching-result");
@@ -90,9 +88,9 @@ function displayResults(book) {
     if (!book.volumeInfo.authors) {
         bookInformation.innerHTML = `<span>(${book.volumeInfo.publishedDate.slice(0, 4)})</span>`;
     } else if (!book.volumeInfo.publishedDate) {
-        bookInformation.innerHTML = `<span>par ${book.volumeInfo.authors[0]}</span>`;
+        bookInformation.innerHTML = `<span>par ${book.volumeInfo.authors}</span>`;
     } else {
-        bookInformation.innerHTML = `<span>par ${book.volumeInfo.authors[0]} (${book.volumeInfo.publishedDate.slice(0, 4)})</span>`;
+        bookInformation.innerHTML = `<span>par ${book.volumeInfo.authors} (${book.volumeInfo.publishedDate.slice(0, 4)})</span>`;
     };
     
     textContainer.appendChild(title);
