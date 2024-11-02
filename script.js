@@ -50,7 +50,7 @@ async function fetchApi() {
 // ---------- LANCEMENT DE LA FONCTION FETCH API À PARTIR D'UN INPUT UTILISATEUR ---------- //
 let timer = 0;
 
-searchInput.addEventListener('input', () => {
+searchInput.addEventListener("input", () => {
     clearTimeout(timer);
     timer = setTimeout(function () {
         if (searchInput.value !== "") {
@@ -88,9 +88,9 @@ function displayResults(book) {
     if (!book.volumeInfo.authors) {
         bookInformation.innerHTML = `<span>(${book.volumeInfo.publishedDate.slice(0, 4)})</span>`;
     } else if (!book.volumeInfo.publishedDate) {
-        bookInformation.innerHTML = `<span>par ${book.volumeInfo.authors}</span>`;
+        bookInformation.innerHTML = `<span>par ${book.volumeInfo.authors.join(', ')}</span>`;
     } else {
-        bookInformation.innerHTML = `<span>par ${book.volumeInfo.authors} (${book.volumeInfo.publishedDate.slice(0, 4)})</span>`;
+        bookInformation.innerHTML = `<span>par ${book.volumeInfo.authors.join(', ')} (${book.volumeInfo.publishedDate.slice(0, 4)})</span>`;
     };
     
     textContainer.appendChild(title);
@@ -100,9 +100,47 @@ function displayResults(book) {
     dropdownContainer.appendChild(matchingResult);
  
     matchingResult.addEventListener("click", () => addBookToList(book))
+    matchingResult.addEventListener("click", () => openBookPage(book));
+
 
     return matchingResult;
 };
+
+// ---------- FERMER DROPDOWN ET CLEANER INPUT SI CLIC À L'EXTÉRIEUR DU CONTAINER ---------- //
+document.addEventListener("click", (event) => {
+    const isClickInside = dropdownContainer.contains(event.target)
+    if (!isClickInside) {
+        dropdownContainer.innerHTML = null;
+    }
+})
+
+// ---------- AFFICHER DROPDOWN SI L'UTILISATEUR RECLIQUE SUR LE CHAMP DE RECHERCHE NON-VIDE ----------- //
+
+searchInput.addEventListener("click", (event) => {
+	const isClickInsideSearch = searchInput.contains(event.target);
+	if (searchInput.value !== "" && isClickInsideSearch) {
+		fetchApi();
+	}
+});
+
+// ---------- AFFICHER UN MESSAGE D'ERREUR SI PAS DE RESULTAT ---------- //
+function noResults(){
+    const matchingResult = document.createElement("div");
+	matchingResult.classList.add("matching-result");
+
+    const error = document.createElement("p");
+    error.innerHTML = "Pas de résultat.";
+
+    matchingResult.appendChild(error);
+    dropdownContainer.appendChild(matchingResult);
+};
+
+// ---------- MASQUER GETTING STARTED DÈS QU'UNE SECTION DE LECTURE EST NON VIDE ---------- //
+function hideExplore() {
+    if (booksContainer.innerHTML != "") {
+        gettingStarted.innerHTML = ""
+    }
+}
 
 // ---------- AJOUTER LIVRE CLIQUÉ À UNE LISTE DE LECTURE ---------- //
 function addBookToList(book) {
@@ -120,30 +158,20 @@ function addBookToList(book) {
     hideExplore();
 }
 
-// ---------- MASQUER GETTING STARTED DÈS QU'UNE SECTION DE LECTURE EST NON VIDE ---------- //
-function hideExplore() {
-    if (booksContainer.innerHTML != "") {
-        gettingStarted.innerHTML = ""
-    }
+// ---------- OUVRIR PAGE LIVRE CLIQUÉ ---------- // 
+const title = document.getElementById("title");
+const author = document.getElementById("author");
+const summary = document.getElementById("summary");
+const cover = document.getElementById("big-cover");
+
+function openBookPage(book) {
+    console.log(`Bouton cliqué pour ${book.volumeInfo.title} !`);
+    // location.href = `book.html?id=${book.id}`
+
+    title.innerHTML = book.volumeInfo.title;
+    author.innerHTML = book.volumeInfo.authors.join(", ");
+    summary.innerHTML = book.volumeInfo.description;
+    cover.src = book.volumeInfo.imageLinks?.thumbnail || "assets/missingbook.jpg" ;
+
+    dropdownContainer.innerHTML = null;
 }
-
-// ---------- FERMER DROPDOWN ET CLEANER INPUT SI CLIC À L'EXTÉRIEUR DU CONTAINER ---------- //
-document.addEventListener("click", (event) => {
-    const isClickInside = dropdownContainer.contains(event.target)
-    if (!isClickInside) {
-        dropdownContainer.innerHTML = null;
-        searchInput.value = "";
-    }
-})
-
-// ---------- AFFICHER UN MESSAGE D'ERREUR SI PAS DE RESULTAT ---------- //
-function noResults(){
-    const matchingResult = document.createElement("div");
-	matchingResult.classList.add("matching-result");
-
-    const error = document.createElement("p");
-    error.innerHTML = "Pas de résultat.";
-
-    matchingResult.appendChild(error);
-    dropdownContainer.appendChild(matchingResult);
-};

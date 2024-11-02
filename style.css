@@ -171,15 +171,19 @@ h3 {
     display: flex;
 }
 
-.summary {
+#author {
+    margin: 25px;
+    margin-top: 10px;
+}
+
+#summary {
     margin: 25px;
 }
 
-#cover-wrapper {
-    width: 500px;
-}
-
 #big-cover {
+    display: block;
     max-width: 500px;
-    height: 30rem;
+    max-height: 100%;
+    width: 300px;
+    height: auto;
 }
